@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
-const orderValidator = require('../validators/orderValidator');
 
-router.post('/order', (req, res, next) => {
-    const { error } = orderValidator.validate(req.body);
-    if (error) return res.status(400).json({ message: error.message });
-    next();
-}, orderController.placeOrder);
+router.post('/order', orderController.placeOrder); //Place Order
+router.get('/orders', orderController.getOrders); //Get All Orders
+router.get('/order/:ref', orderController.getOrderByRef); //Get Order by Ref
+router.put('/order/:id', orderController.updateOrderById); //Update
 
 module.exports = router;
